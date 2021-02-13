@@ -1,4 +1,16 @@
 $(function () {
+  $('#output').hide();
+  $('#start').click(startGame);
+
+  function startGame() {
+    $('#start').hide();
+    $('#output').show();
+    $('input[type="number"]').val('5');
+    $('small').html(
+      'Red background means guess is low, Blue background means guess is high'
+    );
+  }
+
   $('body').css({
     height: 'calc(100vh / 1.5)',
     display: 'flex',
@@ -22,6 +34,7 @@ $(function () {
     margin: '25px auto 0',
     border: '1px solid black',
     textAlign: 'center',
+    cursor: 'pointer',
   });
   $('#output').css({
     backgroundColor: '#333',
@@ -42,5 +55,4 @@ $(function () {
     padding: '0 15px',
     marginBottom: '10px',
   });
-  $('#output').hide();
 });
