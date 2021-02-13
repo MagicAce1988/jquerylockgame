@@ -8,8 +8,10 @@ $(function () {
   function openLock() {
     let win = 0;
     for (let i = 0; i < $('input[type="number"]').length; i++) {
-      var guessNumber = $('input[type="number"]').eq(i).val();
-      console.log(secretNumber[i], guessNumber);
+      const guess = $('input[type="number"]').eq(i);
+      const check = checkNumber(+guess.val(), +secretNumber[i]);
+      guess.css('background-color', check.background);
+      if (check.checker) win++;
     }
     if (win === 3) {
       $('#start').show();
@@ -17,7 +19,25 @@ $(function () {
     }
   }
 
+  function checkNumber(guessNumber, realNumber) {
+    const response = {};
+    if (guessNumber > realNumber) {
+      response.checker = false;
+      response.background = 'red';
+    } else if (guessNumber < realNumber) {
+      response.checker = false;
+      response.background = 'blue';
+    } else {
+      response.checker = true;
+      response.background = 'green';
+    }
+    return response;
+  }
+
   function startGame() {
+    $('input[type="number"]').css({
+      backgroundColor: 'black',
+    });
     secretNumber = Math.floor(Math.random() * 900 + 100).toString();
     $('#start').hide();
     $('#output').show();
