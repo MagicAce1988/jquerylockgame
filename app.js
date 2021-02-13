@@ -1,8 +1,24 @@
 $(function () {
   $('#output').hide();
   $('#start').click(startGame);
+  $('#checkLock').click(openLock);
+
+  let secretNumber;
+
+  function openLock() {
+    let win = 0;
+    for (let i = 0; i < $('input[type="number"]').length; i++) {
+      var guessNumber = $('input[type="number"]').eq(i).val();
+      console.log(secretNumber[i], guessNumber);
+    }
+    if (win === 3) {
+      $('#start').show();
+      $('small').html(`You've got it - ${secretNumber}`);
+    }
+  }
 
   function startGame() {
+    secretNumber = Math.floor(Math.random() * 900 + 100).toString();
     $('#start').hide();
     $('#output').show();
     $('input[type="number"]').val('5');
